@@ -15,7 +15,20 @@ namespace GrpcService1.Services
         {
             return Task.FromResult(new HelloReply
             {
-                Message = "Hello " + request.Name
+                ReplayId = 1,
+                MessageId = "2",
+                Name = request.Name,
+                HelloReplyMsg = new ComplexReplyMsg()
+                {
+                    ComplexReplyMsgId = 3,
+                    CorrelationId = "4",
+                    GradesReply = 5,
+                    SentAt = 6,
+                    Version = 7,
+                    Origin = "Origin 8",
+                    DisplayNameReply = " Display Name Reply ",
+                    Type = "Type 9"
+                }
             });
         }
     }

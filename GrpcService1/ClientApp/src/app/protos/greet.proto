@@ -12,10 +12,32 @@ service Greeter {
 
 // The request message containing the user's name.
 message HelloRequest {
-  string name = 1;
+  int32 id = 1;
+  string name = 100;
+  string messageId = 110;
+  ComplexRequestMsg msg = 111; 
 }
+
+message ComplexRequestMsg {
+  string displayname = 1;
+  int32 grades = 2;
+} 
 
 // The response message containing the greetings.
 message HelloReply {
-  string message = 1;
+  int32 replayId = 1;
+  string name = 100;
+  string messageId = 111;
+  ComplexReplyMsg helloReplyMsg = 2; 
+}
+
+message ComplexReplyMsg {
+  int32 complexReplyMsgId = 1; 
+  string displayNameReply = 2;
+  int32 gradesReply = 3;
+  string origin = 22;
+  string correlationId = 300;
+  int32 sentAt = 400;
+  string type = 500;
+  int32 version = 550;
 }

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { grpc } from '@improbable-eng/grpc-web';
-import { HelloReply, HelloRequest } from './generated/src/app/protos/greet_pb';
+import {
+  ComplexRequestMsg,
+  HelloReply,
+  HelloRequest,
+} from './generated/src/app/protos/greet_pb';
+
 import {
   Greeter,
   GreeterClient,
@@ -25,7 +30,13 @@ export class AppComponent implements OnInit {
 
   startStream() {
     const request = new HelloRequest();
+    request.setId(100);
     request.setName('Reza');
+    request.setMessageid('500');
+    let complexRequest = new ComplexRequestMsg();
+    complexRequest.setDisplayname(' Value Of Display Name ');
+    complexRequest.setGrades(20);
+    request.setMsg(complexRequest);
 
     grpc.invoke(Greeter.SayHello, {
       request: request,
@@ -49,24 +60,5 @@ export class AppComponent implements OnInit {
         }
       },
     });
-  }
-
-  firstTry() {
-    const client = new GreeterClient('https://localhost:7288');
-    const req = new HelloRequest();
-    req.setName('Reza');
-    debugger;
-    client.sayHello(
-      req,
-      (err: ServiceError | null, response: HelloReply | null) => {
-        debugger;
-        if (err) {
-          this.response = `Error: {err.message}`;
-          return;
-        }
-        this.response = response?.getMessage();
-        debugger;
-      }
-    );
   }
 }
